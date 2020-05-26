@@ -1,0 +1,11 @@
+{{range $index, $a := .}}{
+  "rktKind": "dockerAuth",
+  "rktVersion": "v1",
+  "registries": [
+    "{{$a.ProxyEndpoint}}"
+  ],
+  "credentials": {
+    "user": "AWS",
+    "password": "{{$a.Token}}"
+  }
+}{{end}}
