@@ -2,7 +2,7 @@
   "rktKind": "dockerAuth",
   "rktVersion": "v1",
   "registries": [
-    "{{$a.ProxyEndpoint}}"
+    "{{removeHttps $a.ProxyEndpoint}}"
   ],
   "credentials": {
     "user": "AWS",

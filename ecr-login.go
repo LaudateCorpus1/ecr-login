@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"os"
+        "path"
 	"strings"
 	"text/template"
 	"time"
@@ -38,10 +39,15 @@ func getTemplate() *template.Template {
 	var tmpl *template.Template
 	var err error
 
+        funcMap := template.FuncMap{
+            "removeHttps": func(input string) string { return strings.Replace(input,"https://","", 1) },
+        }
+
 	file, exists := os.LookupEnv("TEMPLATE")
 
 	if exists {
-		tmpl, err = template.ParseFiles(file)
+		name := path.Base(file)
+		tmpl, err = template.New(name).Funcs(funcMap).ParseFiles(file)
 	} else {
 		tmpl, err = template.New("default").Parse(DEFAULT_TEMPLATE)
 	}
